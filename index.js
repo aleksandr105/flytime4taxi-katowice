@@ -15,7 +15,7 @@ const getTime = () => {
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
 
-  const hours = date.getHours() === 0 ? '23' : date.getHours() - (1).toString().padStart(2, '0');
+  const hours = date.getHours() === 0 ? '23' : (date.getHours() - 1).toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
   const dateFiltered = `${year}-${month}-${day}`;
   const time_from = `${hours}:${minutes}`;
@@ -47,3 +47,8 @@ setInterval(() => {
   console.log(...getTime());
 }, 1 * 60 * 1000);
 console.log(...getTime());
+
+setInterval(() => {
+  const date = new Date();
+  console.log(date.getHours() === 0 ? '23' : (date.getHours() - 1).toString().padStart(2, '0'));
+}, 100000);
