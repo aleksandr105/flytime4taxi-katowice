@@ -25,6 +25,9 @@ const getTime = () => {
 
 const createMurkup = async () => {
   const { data } = await getFlyData(...getTime());
+
+  if (!data) return;
+
   const murkup = data
     .map(({ airline_name, airline_logo, airport, status }) => {
       if (status === '') return '';
@@ -44,11 +47,4 @@ createMurkup();
 
 setInterval(() => {
   createMurkup();
-  console.log(...getTime());
 }, 1 * 60 * 1000);
-console.log(...getTime());
-
-setInterval(() => {
-  const date = new Date();
-  console.log(date.getHours() === 0 ? '23' : (date.getHours() - 1).toString().padStart(2, '0'));
-}, 100000);
