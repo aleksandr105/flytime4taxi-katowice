@@ -33,10 +33,9 @@ const createMurkup = async () => {
       if (status === '') return '';
       return `
     <li class="flight-item">
-      <span class="flight-status">${status}</span>
-      <span class="flight-name">${airline_name}</span>
+      <p class="flight-status">${status}</p>
       <img class="flight-logo" src="${airline_logo}" alt="${airline_name} logo">
-      <span class="flight-airport">${airport}</span>
+      <p class="flight-airport">${airport}</p>
     </li>`;
     })
     .join('');
