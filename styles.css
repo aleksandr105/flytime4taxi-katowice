@@ -129,6 +129,13 @@ textarea {
  border-radius: 10px;;
 }
 
+.th-awialine{
+ @media screen and (max-width: 405px) {
+  font-size: 13px;
+  
+ }
+}
+
 /* .flight-airport {} */
 
 /* fdfdfdfd */
@@ -138,10 +145,14 @@ table {
  margin: 0 auto;
 }
 
+thead>tr>th{
+ padding: 15px 8px;
+}
+
 th,
 td {
  border: 1px solid #ccc;
- padding: 5px 12px;
+ padding: 5px 8px;
  text-align: left;
 }
 
