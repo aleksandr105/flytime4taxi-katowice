@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FlyTime4Taxi Katowice</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="wrapper">
-      <header class="header">
+      <!-- <header class="header">
         <div class="container"><p class="headeer-text">Тут будет навигация</p></div>
-      </header>
-      <div class="container"><h1 class="title">FlyTime4Taxi Katowice</h1></div>
+      </header> -->
       <main class="main">
+        <h1 class="title">FlyTime4Taxi Katowice</h1>
         <section class="fly">
           <div class="container">
             <div class="fly-container">
               <table class="flight-table">
                 <thead class="table-head">
                   <tr>
-                    <th>Статус</th>
-                    <th class="th-awialine">Авиалиния</th>
-                    <th>От куда</th>
+                    <th class="table-head-status"></th>
+                    <th class="th-awialine"></th>
+                    <th class="table-head-airport"></th>
                   </tr>
                 </thead>
                 <tbody class="table-tbody"></tbody>
@@ -32,6 +38,7 @@
       </main>
       <footer class="footer"></footer>
       <script type="module" src="index.js"></script>
+      <script type="module" src="translation.js"></script>
     </div>
   </body>
 </html>
