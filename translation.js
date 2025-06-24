@@ -23,6 +23,11 @@ export const translations = {
     airline_name: 'Авиакомпания',
     airport: 'Откуда',
   },
+  ka: {
+    status: 'სტატუსი',
+    airline_name: 'ავიაკომპანია',
+    airport: 'საიდან',
+  },
 };
 
 const getTranslate = el => {

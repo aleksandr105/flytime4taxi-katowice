@@ -2,7 +2,7 @@ import { getFlyData, getTime } from './healpers/index.js';
 
 const createMurkup = async () => {
   const { data } = await getFlyData(...getTime());
-
+  console.log(data);
   if (!data) return;
 
   const murkup = data
