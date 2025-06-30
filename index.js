@@ -1,11 +1,22 @@
-import { getFlyData, getTime } from './healpers/index.js';
+import { getFlyData, getTimeForRequest, sortData } from './healpers/index.js';
 
 const createMurkup = async () => {
-  const { data } = await getFlyData(...getTime());
-  console.log(data);
+  const requestPromises = getTimeForRequest().map(data => getFlyData(data));
+
+  const data = await Promise.all(requestPromises)
+    .then(responses => responses.flat())
+    .catch(err => {
+      console.error('Ошибка при загрузке данных:', err);
+    });
+
   if (!data) return;
 
-  const murkup = data
+  const [{ data: prevData = [] }, { data: nextData = [] }] = data;
+  const allData = [...prevData, ...nextData];
+
+  const sortedData = sortData(allData);
+
+  const murkup = sortedData
     .map(({ airline_name, airline_logo, airport, status }) => {
       if (status === '') return '';
 
