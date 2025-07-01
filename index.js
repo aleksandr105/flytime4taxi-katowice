@@ -11,8 +11,7 @@ const createMurkup = async () => {
 
   if (!data) return;
 
-  const [{ data: prevData = [] }, { data: nextData = [] }] = data;
-  const allData = [...prevData, ...nextData];
+  const allData = data.flatMap(item => item?.data || []);
 
   const sortedData = sortData(allData);
 
