@@ -27,6 +27,8 @@ const createMurkup = async () => {
         backgroundStatus = 'delayed-landed';
       } else if (status.includes('PRZEKIEROWANY')) {
         backgroundStatus = 'redirected-flight';
+      } else if (status.includes('ODWOŁANY')) {
+        backgroundStatus = 'canceled-flight';
       } else {
         backgroundStatus = 'tr-flight';
       }

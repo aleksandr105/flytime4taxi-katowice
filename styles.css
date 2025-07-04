@@ -133,6 +133,11 @@ textarea {
  font-size: 12px;
 }
 
+.canceled-flight{
+ background-color: silver;
+ opacity: 0.5;
+}
+
 .td-flight-logo {
  height: 35px;
  border-radius: 10px;;
