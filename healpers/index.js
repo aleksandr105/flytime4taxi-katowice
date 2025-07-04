@@ -71,8 +71,15 @@ export const sortData = data => {
 
   return data
     .map(flight => {
-      if (flight.status === 'OPÓŹNIONY' || flight.status === 'odwołany'.toUpperCase())
-        flight.status + ' ' + flight.scheduled_time;
+      if (
+        flight.status === 'OPÓŹNIONY' ||
+        flight.status === 'odwołany'.toUpperCase() ||
+        flight.status.includes('PRZEKIEROWANY')
+      )
+        flight.status =
+          (flight.status.includes('PRZEKIEROWANY') ? flight.status.split('/')[1] : flight.status) +
+          ' ' +
+          flight.scheduled_time;
 
       const timeMatch = flight.status.match(/\b(\d{2}):(\d{2})\b/);
 

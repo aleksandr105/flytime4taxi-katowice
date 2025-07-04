@@ -21,15 +21,14 @@ const createMurkup = async () => {
 
       let backgroundStatus = 'tr-flight';
 
-      switch (status.includes('WYLĄDOWAŁ') ? 'WYLĄDOWAŁ' : status) {
-        case 'WYLĄDOWAŁ':
-          backgroundStatus = 'plane-landed';
-          break;
-        case 'OPÓŹNIONY':
-          backgroundStatus = 'delayed-landed';
-          break;
-        default:
-          backgroundStatus = 'tr-flight';
+      if (status.includes('WYLĄDOWAŁ')) {
+        backgroundStatus = 'plane-landed';
+      } else if (status.includes('OPÓŹNIONY')) {
+        backgroundStatus = 'delayed-landed';
+      } else if (status.includes('PRZEKIEROWANY')) {
+        backgroundStatus = 'redirected-flight';
+      } else {
+        backgroundStatus = 'tr-flight';
       }
 
       return `
