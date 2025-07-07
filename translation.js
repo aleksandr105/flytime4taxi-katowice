@@ -7,35 +7,46 @@ export const translations = {
     status: 'Status',
     airline_name: 'Airline',
     airport: 'From',
+    flightsLandedLastHour: 'Flights landed in the last hour',
+    tableHour: 'Hour',
+    tableArrivals: 'Arrivals',
   },
   pl: {
     status: 'Status',
     airline_name: 'Linia lotnicza',
     airport: 'Skąd',
+    flightsLandedLastHour: 'Lotów wylądowało w ciągu ostatniej godziny',
+    tableHour: 'Godzina',
+    tableArrivals: 'Przyloty',
   },
   uk: {
     status: 'Статус',
     airline_name: 'Авіакомпанія',
     airport: 'Звідки',
+    flightsLandedLastHour: 'Рейсів прилетіло за останню годину',
+    tableHour: 'Година',
+    tableArrivals: 'Прильоти',
   },
   ru: {
     status: 'Статус',
     airline_name: 'Авиакомпания',
     airport: 'Откуда',
+    flightsLandedLastHour: 'Рейсов прилетело за последний час',
+    tableHour: 'Час',
+    tableArrivals: 'Прилёты',
   },
   ka: {
     status: 'სტატუსი',
     airline_name: 'ავიაკომპანია',
     airport: 'საიდან',
+    flightsLandedLastHour: 'ბოლო საათში ჩამოფრინდა რეისი',
+    tableHour: 'საათი',
+    tableArrivals: 'ჩამოსვლები',
   },
 };
 
-const getTranslate = el => {
+export const getTranslate = el => {
   return (
     (translations && translations[userLang] && translations[userLang][el]) || translations.en[el]
   );
 };
-
-document.querySelector('.table-head-status').textContent = getTranslate('status');
-document.querySelector('.th-awialine').textContent = getTranslate('airline_name');
-document.querySelector('.table-head-airport').textContent = getTranslate('airport');
