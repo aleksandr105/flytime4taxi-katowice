@@ -1,4 +1,4 @@
-import { getFlyData, getTimeForRequest, sortData } from './healpers/index.js';
+import { getFlyData, getTimeForRequest, sortData, getLandingsPerHour } from './healpers/index.js';
 
 const createMurkup = async () => {
   const requestPromises = getTimeForRequest().map(data => getFlyData(data));
@@ -15,8 +15,11 @@ const createMurkup = async () => {
 
   const sortedData = sortData(allData);
 
+  const landingsPerHour = getLandingsPerHour(sortedData);
+  console.log(landingsPerHour);
+
   const murkup = sortedData
-    .map(({ airline_name, airline_logo, airport, status }) => {
+    .map(({ airline_name, airline_logo, airport, status }, idx) => {
       if (status === '') return '';
 
       let backgroundStatus = 'tr-flight';
@@ -32,6 +35,22 @@ const createMurkup = async () => {
       } else {
         backgroundStatus = 'tr-flight';
       }
+
+      //   if (idx === 0) {
+      //     const timeMatch = status.match(/\b(\d{2}):(\d{2})\b/)[1];
+
+      //     return `
+      //   <tr>
+      //   <td>От ${timeMatch}:00</td>
+      //   <td>до ${(Number(timeMatch) + 1).toString().padStart(2, '0')}:00</td>
+      //   <td>${landingsPerHour[timeMatch]} прилет</td>
+      //   </tr>
+      // <tr class=${backgroundStatus}>
+      //   <td class="td-flight-status">${status}</td>
+      //   <td><img class="td-flight-logo" src="${airline_logo}" alt="${airline_name} logo"></td>
+      //   <td class="td-flight-airport">${airport}</td>
+      // </tr>`;
+      //   }
 
       return `
     <tr class=${backgroundStatus}>

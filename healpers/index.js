@@ -100,3 +100,27 @@ export const sortData = data => {
     .filter(flight => flight.arrivalTime >= oneHourAgo)
     .sort((a, b) => a.arrivalTime - b.arrivalTime);
 };
+
+export const getLandingsPerHour = sortedData => {
+  return sortedData.reduce(
+    (acc, flight) => {
+      if (
+        flight.status.includes('ODWOŁANY') ||
+        flight.status.includes('OPÓŹNIONY') ||
+        flight.status.includes('PRZEKIEROWANY')
+      )
+        return acc;
+
+      if (flight.status.includes('WYLĄDOWAŁ')) acc.landed += 1;
+
+      const timeMatch = flight.status.match(/\b(\d{2}):(\d{2})\b/)[1];
+
+      if (!timeMatch) return acc;
+
+      acc[timeMatch] = acc[timeMatch] ? acc[timeMatch] + 1 : (acc[timeMatch] = 1);
+
+      return acc;
+    },
+    { landed: 0 }
+  );
+};
