@@ -1,5 +1,9 @@
 import { getFlyData, getTimeForRequest, sortData } from './healpers/index.js';
-import { getCurrentArrivalsMarkup, arrivalsByHourMarkup } from './markup.js';
+import {
+  getCurrentArrivalsMarkup,
+  arrivalsByHourMarkup,
+  getScheduledFlightsMarkup,
+} from './markup.js';
 
 const ref = document.querySelector('.main>div');
 
@@ -21,11 +25,12 @@ const createMarkup = async () => {
   const sortedData = sortData(allData);
 
   const newMarkup = arrivalsByHourMarkup(sortedData) + getCurrentArrivalsMarkup(sortedData);
-  console.log('не прошло');
+
   if (oldMarkup === newMarkup) return;
-  console.log('прошло');
+
   oldMarkup = newMarkup;
 
+  getScheduledFlightsMarkup(allData);
   ref.innerHTML = newMarkup;
 };
 createMarkup();

@@ -9,7 +9,8 @@ export const translations = {
     airport: 'From',
     flightsLandedLastHour: 'Flights landed in the last hour',
     tableHour: 'Hour',
-    tableArrivals: 'Arrivals',
+    tableArrivals: 'Expected flights',
+    scheduled_flights: 'Scheduled flights',
   },
   pl: {
     status: 'Status',
@@ -17,7 +18,8 @@ export const translations = {
     airport: 'Skąd',
     flightsLandedLastHour: 'Lotów wylądowało w ciągu ostatniej godziny',
     tableHour: 'Godzina',
-    tableArrivals: 'Przyloty',
+    tableArrivals: 'Oczekiwane loty',
+    scheduled_flights: 'Zaplanowane loty',
   },
   uk: {
     status: 'Статус',
@@ -25,7 +27,8 @@ export const translations = {
     airport: 'Звідки',
     flightsLandedLastHour: 'Рейсів прилетіло за останню годину',
     tableHour: 'Година',
-    tableArrivals: 'Прильоти',
+    tableArrivals: 'Очікувані рейси',
+    scheduled_flights: 'Заплановані рейси',
   },
   ru: {
     status: 'Статус',
@@ -33,7 +36,8 @@ export const translations = {
     airport: 'Откуда',
     flightsLandedLastHour: 'Рейсов прилетело за последний час',
     tableHour: 'Час',
-    tableArrivals: 'Прилёты',
+    tableArrivals: 'Ожидаемые рейсы',
+    scheduled_flights: 'Планируемые рейсы',
   },
   ka: {
     status: 'სტატუსი',
@@ -41,7 +45,8 @@ export const translations = {
     airport: 'საიდან',
     flightsLandedLastHour: 'ბოლო საათში ჩამოფრინდა რეისი',
     tableHour: 'საათი',
-    tableArrivals: 'ჩამოსვლები',
+    tableArrivals: 'მოსალოდნელი რეისები',
+    scheduled_flights: 'დაგეგმილი რეისები',
   },
 };
 

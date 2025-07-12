@@ -90,3 +90,9 @@ export const arrivalsByHourMarkup = sortedData => {
         </section>
   `;
 };
+
+export const getScheduledFlightsMarkup = data => {
+  console.log(data);
+
+  const scheduledFlightsPerHours = data.reduce((acc, el) => {}, []);
+};

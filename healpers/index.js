@@ -97,7 +97,12 @@ export const sortData = data => {
       };
     })
     .filter(Boolean)
-    .filter(flight => flight.arrivalTime >= oneHourAgo)
+    .filter(flight => {
+      if (flight.status.includes('OPÓŹNIONY') || flight.status.includes('PRZEKIEROWANY'))
+        return true;
+
+      return flight.arrivalTime >= oneHourAgo;
+    })
     .sort((a, b) => a.arrivalTime - b.arrivalTime);
 };
 
