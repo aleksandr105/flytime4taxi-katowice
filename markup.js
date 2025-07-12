@@ -92,7 +92,34 @@ export const arrivalsByHourMarkup = sortedData => {
 };
 
 export const getScheduledFlightsMarkup = data => {
-  console.log(data);
+  const scheduledFlightsPerHours = data.reduce((acc, { scheduled_time, status, date }) => {
+    if (
+      status.includes('WYLĄDOWAŁ') ||
+      status.includes('OPÓŹNIONY') ||
+      status.includes('PRZEKIEROWANY') ||
+      status.includes('ODWOŁANY')
+    )
+      return acc;
 
-  const scheduledFlightsPerHours = data.reduce((acc, el) => {}, []);
+    if (!scheduled_time.length) return;
+
+    const [hour, minutes] = scheduled_time.split(':');
+
+    const [year, month, day] = date.split('-').map(Number);
+
+    const arrivalDate = new Date(year, month - 1, day, parseInt(hour), parseInt(minutes)).getTime();
+
+    if (acc[hour]) {
+      acc[hour].count += 1;
+    } else {
+      acc[hour] = { count: 1, arrivalDate };
+    }
+    return acc;
+  }, {});
+
+  const scheduledFlightsPerHoursKeys = Object.keys(scheduledFlightsPerHours);
+
+  const sortedScheduledFlightsPerHours = scheduledFlightsPerHoursKeys.sort((a, b) => a - b);
+
+  console.log(scheduledFlightsPerHours);
 };
