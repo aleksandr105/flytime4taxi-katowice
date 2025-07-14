@@ -92,34 +92,61 @@ export const arrivalsByHourMarkup = sortedData => {
 };
 
 export const getScheduledFlightsMarkup = data => {
-  const scheduledFlightsPerHours = data.reduce((acc, { scheduled_time, status, date }) => {
+  const flightsMap = new Map();
+
+  data.forEach(({ scheduled_time, status, date }) => {
     if (
       status.includes('WYLĄDOWAŁ') ||
       status.includes('OPÓŹNIONY') ||
       status.includes('PRZEKIEROWANY') ||
-      status.includes('ODWOŁANY')
+      status.includes('ODWOŁANY') ||
+      status.includes('PRZYLOT')
     )
-      return acc;
+      return;
 
-    if (!scheduled_time.length) return;
+    if (!scheduled_time?.length || !date?.length) return;
 
-    const [hour, minutes] = scheduled_time.split(':');
-
+    const [hour, minutes] = scheduled_time.split(':').map(Number);
     const [year, month, day] = date.split('-').map(Number);
 
-    const arrivalDate = new Date(year, month - 1, day, parseInt(hour), parseInt(minutes)).getTime();
+    const arrivalDate = new Date(year, month - 1, day, hour, minutes).getTime();
 
-    if (acc[hour]) {
-      acc[hour].count += 1;
+    const key = `${hour}`.padStart(2, '0');
+
+    if (flightsMap.has(key)) {
+      const obj = flightsMap.get(key);
+      obj.count += 1;
     } else {
-      acc[hour] = { count: 1, arrivalDate };
+      flightsMap.set(key, { count: 1, arrivalDate });
     }
-    return acc;
-  }, {});
+  });
 
-  const scheduledFlightsPerHoursKeys = Object.keys(scheduledFlightsPerHours);
+  const sortedArray = [...flightsMap.entries()]
+    .map(([hour, { count, arrivalDate }]) => ({
+      hour,
+      count,
+      arrivalDate,
+    }))
+    .sort((a, b) => a.arrivalDate - b.arrivalDate);
 
-  const sortedScheduledFlightsPerHours = scheduledFlightsPerHoursKeys.sort((a, b) => a - b);
+  const chartMarkup = sortedArray
+    .map(({ hour, count }) => {
+      return `
+      <div class="bar-container">
+          <div>${count}</div>
+          <div class="bar" style="height: ${count * 10}px" title="${count} рейсов"></div>
+          <div class="bar-label">${hour}:00</div>
+        </div>
+      `;
+    })
+    .join('');
 
-  console.log(scheduledFlightsPerHours);
+  return `<section class="scheduled-flights-section">
+   <div class="container">
+   <h2 class="scheduled-flights-title">${getTranslate('scheduled_flights')}</h2>
+  <div class="flights-chart">
+  ${chartMarkup}
+</div>
+</div>
+</section>`;
 };

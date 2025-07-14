@@ -40,7 +40,7 @@ export const getDate = (sing, toTime) => {
 
 export const getTimeForRequest = () => {
   const minusSixHours = getDate('-', 4);
-  const plusTwelveHours = getDate('+', 12);
+  const plusTwelveHours = getDate('+', 15);
 
   if (plusTwelveHours.date === minusSixHours.date) {
     return [

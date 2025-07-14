@@ -30,8 +30,9 @@ const createMarkup = async () => {
 
   oldMarkup = newMarkup;
 
-  getScheduledFlightsMarkup(allData);
-  ref.innerHTML = newMarkup;
+  const markup = getScheduledFlightsMarkup(allData);
+
+  ref.innerHTML = newMarkup + markup;
 };
 createMarkup();
 
