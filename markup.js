@@ -51,6 +51,7 @@ export const arrivalsByHourMarkup = sortedData => {
   const landingsPerHour = getLandingsPerHour(sortedData);
 
   const tbodyMarkup = Object.keys(landingsPerHour)
+    .sort((a, b) => Number(a) - Number(b))
     .map(el => {
       if (Number.isNaN(Number(el))) return null;
 
