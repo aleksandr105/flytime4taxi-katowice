@@ -39,7 +39,7 @@ export const getDate = (sing, toTime) => {
 };
 
 export const getTimeForRequest = () => {
-  const minusSixHours = getDate('-', 4);
+  const minusSixHours = getDate('-', 6);
   const plusTwelveHours = getDate('+', 15);
 
   if (plusTwelveHours.date === minusSixHours.date) {
@@ -67,7 +67,7 @@ export const getTimeForRequest = () => {
 };
 
 export const sortData = data => {
-  const oneHourAgo = Date.now() - 75 * 60 * 1000;
+  const oneHourAgo = Date.now() - 60 * 60 * 1000;
 
   return data
     .map(flight => {
@@ -94,6 +94,7 @@ export const sortData = data => {
       return {
         ...flight,
         arrivalTime: arrivalDate.getTime(),
+        arrivalDate,
       };
     })
     .filter(Boolean)
@@ -107,25 +108,29 @@ export const sortData = data => {
 };
 
 export const getLandingsPerHour = sortedData => {
-  return sortedData.reduce(
-    (acc, flight) => {
-      if (
-        flight.status.includes('ODWOŁANY') ||
-        flight.status.includes('OPÓŹNIONY') ||
-        flight.status.includes('PRZEKIEROWANY')
-      )
-        return acc;
+  const mapDataLandingsPerHour = new Map();
 
-      if (flight.status.includes('WYLĄDOWAŁ')) acc.landed += 1;
+  sortedData.forEach(({ status, arrivalDate }) => {
+    if (
+      status.includes('ODWOŁANY') ||
+      status.includes('OPÓŹNIONY') ||
+      status.includes('PRZEKIEROWANY')
+    )
+      return;
 
-      const timeMatch = flight.status.match(/\b(\d{2}):(\d{2})\b/)[1];
+    const flightHour = Number(arrivalDate.getHours().toString().padStart(2, '0'));
 
-      if (!timeMatch) return acc;
+    if (mapDataLandingsPerHour.has(flightHour)) {
+      let el = mapDataLandingsPerHour.get(flightHour);
 
-      acc[timeMatch] = acc[timeMatch] ? acc[timeMatch] + 1 : (acc[timeMatch] = 1);
+      if (status.includes('WYLĄDOWAŁ')) el.landed += 1;
+      el.count += 1;
+    } else {
+      const isLanden = status.includes('WYLĄDOWAŁ') ? 1 : 0;
 
-      return acc;
-    },
-    { landed: 0 }
-  );
+      mapDataLandingsPerHour.set(flightHour, { count: 1, landed: isLanden });
+    }
+  });
+
+  return [...mapDataLandingsPerHour.entries()];
 };

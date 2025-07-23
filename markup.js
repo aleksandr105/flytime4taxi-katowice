@@ -50,24 +50,22 @@ export const getCurrentArrivalsMarkup = sortedData => {
 export const arrivalsByHourMarkup = sortedData => {
   const landingsPerHour = getLandingsPerHour(sortedData);
 
-  const tbodyMarkup = Object.keys(landingsPerHour)
-    .sort((a, b) => Number(a) - Number(b))
-    .map(el => {
-      if (Number.isNaN(Number(el))) return null;
+  let countLanded = 0;
 
-      const currentHourPlusOne =
-        Number(el) === 23 ? '00' : (Number(el) + 1).toString().padStart(2, '0');
+  const tbodyMarkup = landingsPerHour
+    .map(([key, { count, landed }]) => {
+      const currentHourPlusOne = key === 23 ? '00' : (key + 1).toString().padStart(2, '0');
 
-      const getClass = getDate().time.split(':')[0] === el ? 'currentHour' : '#';
+      const getClass = Number(getDate().time.split(':')[0]) === key ? 'currentHour' : '#';
+
+      countLanded += landed;
 
       return `<tr class=${getClass}>
-   <td class="landed-count">${Number(el)
-     .toString()
-     .padStart(2, '0')}:00 - ${currentHourPlusOne}:00</td>
-   <td class ="landed-count">${Number(landingsPerHour[el])}</td>
- </tr>`;
+     <td class="landed-count">${key.toString().padStart(2, '0')}:00 - ${currentHourPlusOne}:00</td>
+     <td class ="landed-count">${count}</td>
+     <td class ="landed-count"><p class="landed-wrapper">${landed}</p></td>
+   </tr>`;
     })
-    .filter(Boolean)
     .join('');
 
   return `
@@ -76,12 +74,13 @@ export const arrivalsByHourMarkup = sortedData => {
             <div class="#">
             <p class ="flightsLandedLastHour">${getTranslate(
               'flightsLandedLastHour'
-            )} <span class ="flightsLandedCount">${landingsPerHour.landed}</span></p>
+            )} <span class ="flightsLandedCount">${countLanded}</span></p>
               <table class="#">
                 <thead class="#">
                   <tr>
                     <th class="#">${getTranslate('tableHour')}</th>
-                    <th class="#">${getTranslate('tableArrivals')}</th> 
+                    <th class="#">${getTranslate('tableArrivals')}</th>
+                    <th class="#">${getTranslate('landed')}</th>
                   </tr>
                 </thead>
                 <tbody class="#">${tbodyMarkup}</tbody>

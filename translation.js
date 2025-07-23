@@ -11,6 +11,7 @@ export const translations = {
     tableHour: 'Hour',
     tableArrivals: 'Expected flights',
     scheduled_flights: 'Scheduled flights',
+    landed: 'Landed',
   },
   pl: {
     status: 'Status',
@@ -20,6 +21,7 @@ export const translations = {
     tableHour: 'Godzina',
     tableArrivals: 'Oczekiwane loty',
     scheduled_flights: 'Zaplanowane loty',
+    landed: 'Wylądował',
   },
   uk: {
     status: 'Статус',
@@ -29,6 +31,7 @@ export const translations = {
     tableHour: 'Година',
     tableArrivals: 'Очікувані рейси',
     scheduled_flights: 'Заплановані рейси',
+    landed: 'Приземлився',
   },
   ru: {
     status: 'Статус',
@@ -38,6 +41,7 @@ export const translations = {
     tableHour: 'Час',
     tableArrivals: 'Ожидаемые рейсы',
     scheduled_flights: 'Планируемые рейсы',
+    landed: 'Приземлился',
   },
   ka: {
     status: 'სტატუსი',
@@ -47,6 +51,7 @@ export const translations = {
     tableHour: 'საათი',
     tableArrivals: 'მოსალოდნელი რეისები',
     scheduled_flights: 'დაგეგმილი რეისები',
+    landed: 'დაჯდა',
   },
 };
 
