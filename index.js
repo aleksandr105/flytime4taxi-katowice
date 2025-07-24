@@ -1,4 +1,9 @@
-import { getFlyData, getTimeForRequest, sortData } from './healpers/index.js';
+import {
+  getFlyData,
+  getTimeForRequest,
+  sortData,
+  getStartOfPreviousHour,
+} from './healpers/index.js';
 import {
   getCurrentArrivalsMarkup,
   arrivalsByHourMarkup,
@@ -22,9 +27,18 @@ const createMarkup = async () => {
 
   const allData = data.flatMap(item => item?.data || []);
 
-  const sortedData = sortData(allData);
+  const sortedData = sortData(allData, Date.now() - 60 * 60 * 1000);
 
-  const newMarkup = arrivalsByHourMarkup(sortedData) + getCurrentArrivalsMarkup(sortedData);
+  const landedOneHourAgo = [...sortedData].reduce((acc, { status }) => {
+    if (status.includes('WYLĄDOWAŁ')) return (acc += 1);
+    return acc;
+  }, 0);
+
+  const sortedDataForArrivalsByHour = sortData(allData, getStartOfPreviousHour());
+
+  const newMarkup =
+    arrivalsByHourMarkup(sortedDataForArrivalsByHour, landedOneHourAgo) +
+    getCurrentArrivalsMarkup(sortedData);
 
   if (oldMarkup === newMarkup) return;
 

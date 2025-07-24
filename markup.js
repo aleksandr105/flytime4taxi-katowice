@@ -47,23 +47,20 @@ export const getCurrentArrivalsMarkup = sortedData => {
         </section>`;
 };
 
-export const arrivalsByHourMarkup = sortedData => {
+export const arrivalsByHourMarkup = (sortedData, countLanded) => {
   const landingsPerHour = getLandingsPerHour(sortedData);
-
-  let countLanded = 0;
 
   const tbodyMarkup = landingsPerHour
     .map(([key, { count, landed }]) => {
       const currentHourPlusOne = key === 23 ? '00' : (key + 1).toString().padStart(2, '0');
 
       const getClass = Number(getDate().time.split(':')[0]) === key ? 'currentHour' : '#';
-
-      countLanded += landed;
+      const backgroundColor = landed !== 0 ? 'landed-wrapper-landed' : '';
 
       return `<tr class=${getClass}>
      <td class="landed-count">${key.toString().padStart(2, '0')}:00 - ${currentHourPlusOne}:00</td>
      <td class ="landed-count">${count}</td>
-     <td class ="landed-count"><p class="landed-wrapper">${landed}</p></td>
+     <td class ="landed-count"><p class="landed-wrapper ${backgroundColor}">${landed}</p></td>
    </tr>`;
     })
     .join('');

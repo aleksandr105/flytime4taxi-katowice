@@ -66,9 +66,7 @@ export const getTimeForRequest = () => {
   }
 };
 
-export const sortData = data => {
-  const oneHourAgo = Date.now() - 60 * 60 * 1000;
-
+export const sortData = (data, HoursAgo) => {
   return data
     .map(flight => {
       if (
@@ -102,7 +100,7 @@ export const sortData = data => {
       if (flight.status.includes('OPÓŹNIONY') || flight.status.includes('PRZEKIEROWANY'))
         return true;
 
-      return flight.arrivalTime >= oneHourAgo;
+      return flight.arrivalTime >= HoursAgo;
     })
     .sort((a, b) => a.arrivalTime - b.arrivalTime);
 };
@@ -133,4 +131,11 @@ export const getLandingsPerHour = sortedData => {
   });
 
   return [...mapDataLandingsPerHour.entries()];
+};
+
+export const getStartOfPreviousHour = () => {
+  const now = new Date();
+  now.setMinutes(0, 0, 0); // обнуляем минуты и секунды
+  now.setHours(now.getHours() - 1); // минус один час
+  return now.getTime();
 };
