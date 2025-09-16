@@ -8,13 +8,13 @@ export const getCurrentArrivalsMarkup = sortedData => {
 
       let backgroundStatus = 'tr-flight';
 
-      if (status.includes('WYLĄDOWAŁ')) {
+      if (status.toUpperCase().includes('WYLĄDOWAŁ')) {
         backgroundStatus = 'plane-landed';
-      } else if (status.includes('OPÓŹNIONY')) {
+      } else if (status.toUpperCase().includes('OPÓŹNIONY')) {
         backgroundStatus = 'delayed-landed';
-      } else if (status.includes('PRZEKIEROWANY')) {
+      } else if (status.toUpperCase().includes('PRZEKIEROWANY')) {
         backgroundStatus = 'redirected-flight';
-      } else if (status.includes('ODWOŁANY')) {
+      } else if (status.toUpperCase().includes('ODWOŁANY')) {
         backgroundStatus = 'canceled-flight';
       } else {
         backgroundStatus = 'tr-flight';
@@ -91,22 +91,38 @@ export const arrivalsByHourMarkup = (sortedData, countLanded) => {
 export const getScheduledFlightsMarkup = data => {
   const flightsMap = new Map();
 
+  const currentDate = getDate();
+
+  const [hour] = currentDate.time.split(':').map(Number);
+  const [year, month, day] = currentDate.date.split('-').map(Number);
+
+  const currentSeconds = new Date(year, month - 1, day, hour, 0).getTime();
+
   data.forEach(({ scheduled_time, status, date }) => {
     if (
-      status.includes('WYLĄDOWAŁ') ||
-      status.includes('OPÓŹNIONY') ||
-      status.includes('PRZEKIEROWANY') ||
-      status.includes('ODWOŁANY') ||
-      status.includes('PRZYLOT')
+      status.toUpperCase().includes('OPÓŹNIONY') ||
+      status.toUpperCase().includes('PRZEKIEROWANY') ||
+      status.toUpperCase().includes('ODWOŁANY')
     )
       return;
 
     if (!scheduled_time?.length || !date?.length) return;
 
-    const [hour, minutes] = scheduled_time.split(':').map(Number);
+    const getFlightTime = () => {
+      if (status.toUpperCase().includes('PRZYLOT') || status.toUpperCase().includes('WYLĄDOWAŁ')) {
+        const [_, hours, minutes] = status.match(/\b(\d{2}):(\d{2})\b/);
+        return `${hours}:${minutes}`;
+      }
+
+      return scheduled_time;
+    };
+
+    const [hour, minutes] = getFlightTime().split(':').map(Number);
     const [year, month, day] = date.split('-').map(Number);
 
     const arrivalDate = new Date(year, month - 1, day, hour, minutes).getTime();
+
+    if (currentSeconds > arrivalDate) return;
 
     const key = `${hour}`.padStart(2, '0');
 

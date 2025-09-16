@@ -70,14 +70,11 @@ export const sortData = (data, HoursAgo) => {
   return data
     .map(flight => {
       if (
-        flight.status === 'OPÓŹNIONY' ||
-        flight.status === 'odwołany'.toUpperCase() ||
-        flight.status.includes('PRZEKIEROWANY')
+        flight.status.toUpperCase().includes('OPÓŹNIONY') ||
+        flight.status.toUpperCase().includes('ODWOŁANY') ||
+        flight.status.toUpperCase().includes('PRZEKIEROWANY')
       )
-        flight.status =
-          (flight.status.includes('PRZEKIEROWANY') ? flight.status.split('/')[1] : flight.status) +
-          ' ' +
-          flight.scheduled_time;
+        flight.status = flight.status + ' ' + flight.scheduled_time;
 
       const timeMatch = flight.status.match(/\b(\d{2}):(\d{2})\b/);
 
@@ -97,7 +94,10 @@ export const sortData = (data, HoursAgo) => {
     })
     .filter(Boolean)
     .filter(flight => {
-      if (flight.status.includes('OPÓŹNIONY') || flight.status.includes('PRZEKIEROWANY'))
+      if (
+        flight.status.toUpperCase().includes('OPÓŹNIONY') ||
+        flight.status.toUpperCase().includes('PRZEKIEROWANY')
+      )
         return true;
 
       return flight.arrivalTime >= HoursAgo;
@@ -110,9 +110,9 @@ export const getLandingsPerHour = sortedData => {
 
   sortedData.forEach(({ status, arrivalDate }) => {
     if (
-      status.includes('ODWOŁANY') ||
-      status.includes('OPÓŹNIONY') ||
-      status.includes('PRZEKIEROWANY')
+      status.toUpperCase().includes('ODWOŁANY') ||
+      status.toUpperCase().includes('OPÓŹNIONY') ||
+      status.toUpperCase().includes('PRZEKIEROWANY')
     )
       return;
 

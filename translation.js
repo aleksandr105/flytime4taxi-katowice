@@ -20,7 +20,7 @@ export const translations = {
     flightsLandedLastHour: 'Lotów wylądowało w ciągu ostatniej godziny',
     tableHour: 'Godzina',
     tableArrivals: 'Oczekiwane loty',
-    scheduled_flights: 'Zaplanowane loty',
+    scheduled_flights: 'Zaplanowane przeloty',
     landed: 'Wylądował',
   },
   uk: {
