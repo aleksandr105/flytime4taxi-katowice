@@ -84,7 +84,14 @@ export const sortData = (data, HoursAgo) => {
 
       const [year, month, day] = flight.date.split('-').map(Number);
 
-      const arrivalDate = new Date(year, month - 1, day, parseInt(hours), parseInt(minutes));
+      let arrivalDate = new Date(year, month - 1, day, parseInt(hours), parseInt(minutes));
+
+      // фикс с переходом прилетов на другой день
+      const now = Date.now();
+      if (arrivalDate.getTime() - now > 18 * 60 * 60 * 1000) {
+        arrivalDate.setDate(arrivalDate.getDate() - 1);
+      }
+      ///////////////////////
 
       return {
         ...flight,
