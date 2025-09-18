@@ -247,3 +247,10 @@ th {
   .scheduled-flights-section{
    padding-bottom: 40px;
   }
+
+  .terminal{
+   /* color: rgb(0, 4, 255); */
+   font-weight: 600;
+   /* text-align: center; */
+   margin-top: 5px;
+  }

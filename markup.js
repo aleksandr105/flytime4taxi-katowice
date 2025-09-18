@@ -3,7 +3,7 @@ import { getLandingsPerHour, getDate } from './healpers/index.js';
 
 export const getCurrentArrivalsMarkup = sortedData => {
   const tableBodyMarcup = sortedData
-    .map(({ airline_name, airline_logo, airport, status }) => {
+    .map(({ airline_name, airline_logo, airport, status, terminal }) => {
       if (status === '') return '';
 
       let backgroundStatus = 'tr-flight';
@@ -22,7 +22,7 @@ export const getCurrentArrivalsMarkup = sortedData => {
 
       return `
  <tr class=${backgroundStatus}>
-   <td class="td-flight-status">${status}</td>
+   <td class="td-flight-status"><p>${status}</p><p class="terminal">${terminal}</p></td>
    <td><img class="td-flight-logo" src="${airline_logo}" alt="${airline_name} logo"></td>
    <td class="td-flight-airport">${airport}</td>
  </tr>`;
