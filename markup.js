@@ -110,7 +110,17 @@ export const getScheduledFlightsMarkup = data => {
 
     const getFlightTime = () => {
       if (status.toUpperCase().includes('PRZYLOT') || status.toUpperCase().includes('WYLĄDOWAŁ')) {
-        const [_, hours, minutes] = status.match(/\b(\d{2}):(\d{2})\b/);
+        let hours;
+        let minutes;
+
+        const timeMatch = status.match(/\b(\d{2}):(\d{2})\b/);
+
+        if (timeMatch) {
+          [, hours, minutes] = timeMatch;
+        } else if (scheduled_time) {
+          [hours, minutes] = scheduled_time.split(':');
+        }
+
         return `${hours}:${minutes}`;
       }
 
