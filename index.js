@@ -10,7 +10,28 @@ import {
   getScheduledFlightsMarkup,
 } from './markup.js';
 
-const ref = document.querySelector('.main>div');
+const ref = document.querySelector('.main>div.root');
+
+// theme code
+const theme = JSON.parse(localStorage.getItem('dark'));
+
+const toggle = document.getElementById('theme-toggle');
+
+if (theme) {
+  document.querySelector('body').classList.add('dark-theme');
+  document.querySelector('.checkbox-img').classList.add('checkbox-img-cheked');
+  toggle.checked = 'true';
+}
+
+toggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark-theme', toggle.checked);
+  document.querySelector('.checkbox-img').classList.toggle('checkbox-img-cheked', toggle.checked);
+  document.querySelector('.flights-chart').classList.toggle('dark', toggle.checked);
+  localStorage.setItem('dark', JSON.stringify(toggle.checked));
+});
+
+document.querySelector('.checkbox-wrapper').style.display = 'flex';
+/////////////////
 
 let oldMarkup = '';
 

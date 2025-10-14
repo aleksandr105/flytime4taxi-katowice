@@ -22,7 +22,7 @@ export const getCurrentArrivalsMarkup = sortedData => {
 
       return `
  <tr class=${backgroundStatus}>
-   <td class="td-flight-status"><p>${status}</p><p class="terminal">${terminal}</p></td>
+   <td class="td-flight-status"><p>${status}</p><p class="terminal-Info">${terminal}</p></td>
    <td><img class="td-flight-logo" src="${airline_logo}" alt="${airline_name} logo"></td>
    <td class="td-flight-airport">${airport}</td>
  </tr>`;
@@ -164,10 +164,12 @@ export const getScheduledFlightsMarkup = data => {
     })
     .join('');
 
+  const theme = JSON.parse(localStorage.getItem('dark')) ? 'dark' : '';
+
   return `<section class="scheduled-flights-section">
    <div class="container">
    <h2 class="scheduled-flights-title">${getTranslate('scheduled_flights')}</h2>
-  <div class="flights-chart">
+  <div class="flights-chart ${theme}">
   ${chartMarkup}
 </div>
 </div>

@@ -91,10 +91,24 @@ textarea {
 .title{
  color: rgb(0, 55, 255);
  text-align: center;
- padding-top: 30px;
- margin-bottom: 20px;
  font-size: 24px;
  font-weight: 600;
+}
+
+.logo{
+ width: 30px;
+ height: 30px; 
+ margin-right: 3px;
+ border-radius: 10px;
+}
+
+.title-wrapper{
+ padding-top: 30px;
+ display:flex;
+ flex-wrap: wrap;
+ align-items: center;
+ justify-content: center;
+ margin-bottom: 20px;
 }
 
 .headeer-text{
@@ -144,6 +158,7 @@ table {
 
 thead>tr>th{
  padding: 15px 8px;
+ color:#121212
 }
 
 th,
@@ -218,6 +233,10 @@ th {
    overflow-x: auto;
   }
  
+.dark {
+ background: #acacac;
+}
+
   .bar-container {
    display: flex;
    flex-direction: column;
@@ -248,9 +267,82 @@ th {
    padding-bottom: 40px;
   }
 
-  .terminal{
-   /* color: rgb(0, 4, 255); */
+  .terminal-Info{
    font-weight: 600;
-   /* text-align: center; */
    margin-top: 5px;
   }
+
+/* тема чекбокс */
+
+  .checkbox-wrapper{
+   display: flex;
+   max-width: 340px;
+   padding-bottom: 10px;
+  }
+
+    /* Контейнер */
+    .switch {
+     position: relative;
+     display: inline-block;
+     width: 40px;
+     height: 20px;
+    }
+  
+    /* Скрываем стандартный checkbox */
+    .switch input {
+     opacity: 0;
+     width: 0;
+     height: 0;
+    }
+  
+    /* Ползунок */
+    .slider {
+     position: absolute;
+     cursor: pointer;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     /* background-color: #ccc; */
+     background-color: #4a90e2;
+     border-radius: 20px;
+     transition: 0.3s;
+    }
+  
+    /* Кругляшок */
+    .slider::before {
+     position: absolute;
+     content: "";
+     height: 15px;
+     width: 15px;
+     left: 3px;
+     bottom: 3px;
+     background-color: #FFF;
+     border-radius: 50%;
+     transition: 0.3s;
+    }
+  
+    /* Когда чекбокс активен */
+body.dark-theme {
+ background-color: #6c6c6c;
+ color: #f1f1f1;
+}
+
+    input:checked+.slider {
+     background-color: #4a90e2;
+    }
+  
+    input:checked+.slider::before {
+     transform: translateX(19px);
+    }
+
+    .checkbox-img{
+     width: 20px;
+     height: 20px;
+     margin-right: 5px;
+     fill: #4a90e2;
+    }
+
+    .checkbox-img-cheked{
+     fill: #efff13
+    }
