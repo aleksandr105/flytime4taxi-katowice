@@ -24,6 +24,18 @@ if (theme) {
 }
 
 toggle.addEventListener('change', () => {
+  document
+    .querySelector('.landed-wrapper.landed-wrapper-landed')
+    .classList.toggle('dark-status', toggle.checked);
+
+  document
+    .querySelector('.flightsLandedLastHour>span')
+    .classList.toggle('dark-status', toggle.checked);
+
+  document
+    .querySelectorAll('.currentHour>.landed-count')
+    .forEach(el => el.classList.toggle('landed-count-dark', toggle.checked));
+
   document.body.classList.toggle('dark-theme', toggle.checked);
   document.querySelector('.checkbox-img').classList.toggle('checkbox-img-cheked', toggle.checked);
   document.querySelector('.flights-chart').classList.toggle('dark', toggle.checked);

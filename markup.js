@@ -20,11 +20,13 @@ export const getCurrentArrivalsMarkup = sortedData => {
         backgroundStatus = 'tr-flight';
       }
 
+      const getDarkclass = backgroundStatus !== 'tr-flight' ? 'dark-status' : '';
+
       return `
  <tr class=${backgroundStatus}>
-   <td class="td-flight-status"><p>${status}</p><p class="terminal-Info">${terminal}</p></td>
-   <td><img class="td-flight-logo" src="${airline_logo}" alt="${airline_name} logo"></td>
-   <td class="td-flight-airport">${airport}</td>
+   <td class="td-flight-status ${getDarkclass}"><p>${status}</p><p class="terminal-Info">${terminal}</p></td>
+   <td><img class="td-flight-logo ${getDarkclass}" src="${airline_logo}" alt="${airline_name} logo"></td>
+   <td class="td-flight-airport ${getDarkclass}">${airport}</td>
  </tr>`;
     })
     .join('');
@@ -55,15 +57,29 @@ export const arrivalsByHourMarkup = (sortedData, countLanded) => {
       const currentHourPlusOne = key === 23 ? '00' : (key + 1).toString().padStart(2, '0');
 
       const getClass = Number(getDate().time.split(':')[0]) === key ? 'currentHour' : '#';
+      const getClassDark =
+        Number(getDate().time.split(':')[0]) === key
+          ? 'landed-count landed-count-dark'
+          : 'landed-count';
+
       const backgroundColor = landed !== 0 ? 'landed-wrapper-landed' : '';
 
+      const darkClass =
+        JSON.parse(localStorage.getItem('dark')) && backgroundColor === 'landed-wrapper-landed'
+          ? 'dark-status'
+          : '';
+
       return `<tr class=${getClass}>
-     <td class="landed-count">${key.toString().padStart(2, '0')}:00 - ${currentHourPlusOne}:00</td>
-     <td class ="landed-count">${count}</td>
-     <td class ="landed-count"><p class="landed-wrapper ${backgroundColor}">${landed}</p></td>
+     <td class="${getClassDark}">${key
+        .toString()
+        .padStart(2, '0')}:00 - ${currentHourPlusOne}:00</td>
+     <td class ="${getClassDark}">${count}</td>
+     <td class ="${getClassDark}"><p class="landed-wrapper ${backgroundColor} ${darkClass}">${landed}</p></td>
    </tr>`;
     })
     .join('');
+
+  const getClass = JSON.parse(localStorage.getItem('dark')) ? 'dark-status' : '';
 
   return `
   <section class="landed-info">
@@ -71,7 +87,7 @@ export const arrivalsByHourMarkup = (sortedData, countLanded) => {
             <div class="#">
             <p class ="flightsLandedLastHour">${getTranslate(
               'flightsLandedLastHour'
-            )} <span class ="flightsLandedCount">${countLanded}</span></p>
+            )} <span class ="flightsLandedCount ${getClass}">${countLanded}</span></p>
               <table class="#">
                 <thead class="#">
                   <tr>

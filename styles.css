@@ -137,6 +137,10 @@ textarea {
  opacity: 0.5;
 }
 
+.dark-status{
+  color: #121212;
+}
+
 .td-flight-logo {
  height: 35px;
  border-radius: 10px;;
@@ -200,6 +204,10 @@ th {
 
  .landed-count{
   text-align: center;
+ }
+
+ .landed-count-dark{
+  color:#121212
  }
 
  .landed-wrapper{
