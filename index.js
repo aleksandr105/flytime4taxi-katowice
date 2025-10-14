@@ -19,11 +19,14 @@ const toggle = document.getElementById('theme-toggle');
 
 if (theme) {
   document.querySelector('body').classList.add('dark-theme');
+  document.querySelector('.title').classList.add('title-dark-thime');
   document.querySelector('.checkbox-img').classList.add('checkbox-img-cheked');
   toggle.checked = 'true';
 }
 
 toggle.addEventListener('change', () => {
+  document.querySelector('.title').classList.toggle('title-dark-thime', toggle.checked);
+
   document
     .querySelector('.landed-wrapper.landed-wrapper-landed')
     .classList.toggle('dark-status', toggle.checked);

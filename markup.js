@@ -168,6 +168,8 @@ export const getScheduledFlightsMarkup = data => {
     }))
     .sort((a, b) => a.arrivalDate - b.arrivalDate);
 
+  const theme = JSON.parse(localStorage.getItem('dark')) ? 'dark' : '';
+
   const chartMarkup = sortedArray
     .map(({ hour, count }) => {
       return `
@@ -179,8 +181,6 @@ export const getScheduledFlightsMarkup = data => {
       `;
     })
     .join('');
-
-  const theme = JSON.parse(localStorage.getItem('dark')) ? 'dark' : '';
 
   return `<section class="scheduled-flights-section">
    <div class="container">
