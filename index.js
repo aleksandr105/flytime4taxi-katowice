@@ -27,9 +27,11 @@ if (theme) {
 toggle.addEventListener('change', () => {
   document.querySelector('.title').classList.toggle('title-dark-thime', toggle.checked);
 
-  document
-    .querySelector('.landed-wrapper.landed-wrapper-landed')
-    .classList.toggle('dark-status', toggle.checked);
+  if (document.querySelector('.landed-wrapper').classList.contains('.landed-wrapper-landed')) {
+    document
+      .querySelector('.landed-wrapper.landed-wrapper-landed')
+      .classList.toggle('dark-status', toggle.checked);
+  }
 
   document
     .querySelector('.flightsLandedLastHour>span')
